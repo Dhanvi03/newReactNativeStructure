@@ -1,0 +1,16 @@
+{
+    "login": {
+        "log_in": "Log In",
+        "email": "Email",
+        "password": "Password",
+        "yourEmailId": "Enter your email",
+        "login": "Login"
+    },
+    "common": {
+        "hello": "Hello, {{name}}!"
+    },
+    "newsList": {
+        "news": "News",
+        "general": "General"
+    }
+}
