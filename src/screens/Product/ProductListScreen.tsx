@@ -1,33 +1,27 @@
 import React from 'react';
 import { FlatList, View, ActivityIndicator, RefreshControl, TouchableOpacity } from 'react-native';
-import { useNewsList } from './useNewsList';
+import { useProductListViewModel } from './useProduct';
 import { AppText } from '@src/blueprints';
 
-const NewsListScreen = () => {
+const ProductListScreen = () => {
   const {
-    newsItems,
-    isLoading,
-    loadMore,
-    isFetchingNextPage,
-    refresh,
+    products,
     styles,
     color,
-    handlePressItem
-  } = useNewsList();
+    handleCreateProduct,
+    isCreating,
+    refetch,
+    handlePressItem,
+    loadMore,
+    isFetchingNextPage,
+    isPending,
+  } = useProductListViewModel();
 
-  // Show a full screen loader only on the first load
-  if (isLoading && !isFetchingNextPage) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <ActivityIndicator size="large" color={color.primary} />
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={newsItems}
+        data={products}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContent}
         renderItem={({ item }) => (
@@ -35,13 +29,14 @@ const NewsListScreen = () => {
             style={styles.itemContainer}
             onPress={() => handlePressItem(item)}
           >
-            <AppText style={styles.title}>{item.title}</AppText>
+            <AppText style={styles.title}>{item.name}</AppText>
             <AppText style={styles.description} numberOfLines={2}>
               {item.description}
             </AppText>
           </TouchableOpacity>
         )}
-        // Infinite Scroll Logic
+
+        /* ─── Pagination ────────────────────────────── */
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={() =>
@@ -51,12 +46,15 @@ const NewsListScreen = () => {
             </View>
           ) : null
         }
+
+        /* ─── Pull to refresh ───────────────────────────── */
+
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refresh} />
+          <RefreshControl refreshing={isPending} onRefresh={refetch} />
         }
       />
     </View>
   );
 };
 
-export default NewsListScreen;
+export default ProductListScreen;

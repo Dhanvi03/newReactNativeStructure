@@ -24,7 +24,6 @@ export const loginStyles = ({ backgroundColor,primary,textColor}: Palette) =>
          textAlign: 'center',
           marginBottom: 20
     },
-    fieldContainer: {},
     header: {
       backgroundColor: primary,
       flex: 1,

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 import { CONFIG } from '@src/constants/config';
 import { setupInterceptors } from './interceptors';
 import { retryRequest } from '@src/utils/api/retry';
@@ -10,50 +10,47 @@ class APIClient {
     this.instance = axios.create({
       baseURL: CONFIG.API_URL,
       timeout: CONFIG.TIMEOUT,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
-
     setupInterceptors(this.instance);
   }
 
-  async get<T = any>(
+  // ─── Core — all methods funnel through here ───────────────
+  private async request<T = any>(
+    method: Method,
     url: string,
-    config?: any
+    options?: {
+      data?: any;
+      params?: any;
+      config?: AxiosRequestConfig;
+      retry?: boolean;
+    }
   ): Promise<AxiosResponse<T>> {
-    return retryRequest(() => this.instance.get<T>(url, config), 2);
+    const { data, params, config, retry } = options || {};
+    const requestConfig: AxiosRequestConfig = { method, url, data, params, ...config };
+    const requestFn = () => this.instance.request<T>(requestConfig);
+    return retry ? retryRequest(requestFn, 2) : requestFn();
   }
 
-  async post<T = any>(
-    url: string,
-    data?: any,
-    config?: any
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.post<T>(url, data, config);
+  // ─── Public Methods ───────────────────────────────────────
+  get<T = any>(url: string, options?: { params?: any; config?: AxiosRequestConfig; retry?: boolean }): Promise<AxiosResponse<T>> {
+    return this.request<T>('GET', url, options);
   }
 
-  async put<T = any>(
-    url: string,
-    data?: any,
-    config?: any
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.put<T>(url, data, config);
+  post<T = any>(url: string, data?: any, options?: { params?: any; config?: AxiosRequestConfig }): Promise<AxiosResponse<T>> {
+    return this.request<T>('POST', url, { data, ...options });
   }
 
-  async patch<T = any>(
-    url: string,
-    data?: any,
-    config?: any
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.patch<T>(url, data, config);
+  put<T = any>(url: string, data?: any, options?: { params?: any; config?: AxiosRequestConfig }): Promise<AxiosResponse<T>> {
+    return this.request<T>('PUT', url, { data, ...options });
   }
 
-  async delete<T = any>(
-    url: string,
-    config?: any
-  ): Promise<AxiosResponse<T>> {
-    return this.instance.delete<T>(url, config);
+  patch<T = any>(url: string, data?: any, options?: { params?: any; config?: AxiosRequestConfig }): Promise<AxiosResponse<T>> {
+    return this.request<T>('PATCH', url, { data, ...options });
+  }
+
+  delete<T = any>(url: string, options?: { params?: any; config?: AxiosRequestConfig }): Promise<AxiosResponse<T>> {
+    return this.request<T>('DELETE', url, options);
   }
 
   getInstance(): AxiosInstance {

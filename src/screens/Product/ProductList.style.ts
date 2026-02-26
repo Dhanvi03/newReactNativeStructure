@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Palette, scaleHeight, scaleWidth, scaledSize } from '@src/utils';
 
-export const newsListStyles = (palette: Palette) =>
+export const productListStyles = (palette: Palette) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -13,7 +13,6 @@ export const newsListStyles = (palette: Palette) =>
     },
     itemContainer: {
       marginBottom: scaleHeight(12),
-      // Using your utilities for consistent spacing
       padding: scaleWidth(12),
       borderRadius: scaleWidth(8),
       backgroundColor: palette.backgroundColor || '#ffffff', 

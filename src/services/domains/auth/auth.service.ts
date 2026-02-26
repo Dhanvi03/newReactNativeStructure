@@ -19,24 +19,16 @@ class AuthService {
   }
 
 
-  // async logout(): Promise<void> {
-  //   try {
-  //     await apiClient.post(AUTH_ENDPOINTS.LOGOUT);
-  //   } catch (error) {
-  //     console.error('Logout error:', error);
-  //     throw error;
-  //   }
-  // }
+  async logout(): Promise<void> {
+    try {
+      await apiClient.post(AUTH_ENDPOINTS.LOGOUT);
+    } catch (error) {
+      console.error('Logout error:', error);
+      throw error;
+    }
+  }
 
-  // async refresh(token: string): Promise<any> {
-  //   try {
-  //     const response = await apiClient.post(AUTH_ENDPOINTS.REFRESH, { token });
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('Refresh token error:', error);
-  //     throw error;
-  //   }
-  // }
+
 }
 
 export const authService = new AuthService();

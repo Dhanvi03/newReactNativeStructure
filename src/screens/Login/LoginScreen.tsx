@@ -9,10 +9,7 @@ import { Screen } from '@src/navigation/screen';
 import useLogin from './useLogin';
 
 // Type the component with the Screen enum
-const LoginScreen: React.FC<RootStackScreenProps<Screen.LOGIN>> = ({
-  navigation,
-  route
-}) => {
+const LoginScreen: React.FC<RootStackScreenProps<Screen.LOGIN>> = () => {
   const {
     styles,
     color,
@@ -26,10 +23,9 @@ const LoginScreen: React.FC<RootStackScreenProps<Screen.LOGIN>> = ({
       <View style={styles.header} />
       <View style={styles.content}>
         <AppText style={styles.titleLogin}>{contents('login.log_in')}</AppText>
-        {/* Your form here */}
         <Button
           title={contents('login.login')}
-          onPress={() => handleButtonSubmit({ email: '', password: '' })}
+          onPress={() => handleButtonSubmit({ email: '', password: ''})}
           palette={color}
         />
       </View>

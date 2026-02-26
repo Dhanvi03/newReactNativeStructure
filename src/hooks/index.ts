@@ -8,7 +8,6 @@ export { useLogin } from './api/useAuth';
 // export { useUserProfile, useUpdateProfile } from './api/useUser';
 
 // Pagination Hooks
-export { usePaginationState } from './pagination';
 export { useAppContext } from './ui/useAppContext';
 export { useAppNavigation } from './ui/useAppNavigation';
 

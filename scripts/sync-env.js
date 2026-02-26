@@ -1,5 +1,10 @@
-#!/usr/bin/env node
+//To run
+//npm run env:async
 
+//usage
+//It will sync .env file to .env.d.ts and .env.production
+//It will keep existing production value if it exists
+//It will use development value for new variables
 const fs = require('fs');
 const path = require('path');
 

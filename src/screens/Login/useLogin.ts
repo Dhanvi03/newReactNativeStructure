@@ -20,27 +20,13 @@ const validationSchema = yup.object().shape({
 });
 
 const useLogin = () => {
-  const { color, navigation } = useAppContext();
-  const { mutateAsync: login, isPending } = useAuthLogin();
+  const { color , language} = useAppContext();
+  const { mutate: login, isPending } = useAuthLogin();
   const passwordRef = useRef<TextInput>(null);
 
-  const handleButtonSubmit = useCallback(
-    async (values: LoginFormValues) => {
-      try {
-        await login(values);
-
-        // Navigation on success
-        navigation.reset({
-          index: 0,
-          routes: [{ name: Screen.BOTTOM_TAB }],
-        });
-
-      } catch (error) {
-        console.error('Login error', error);
-      }
-    },
-    [login, navigation]
-  );
+  const handleButtonSubmit = (values: LoginFormValues)=>{
+    login(values)
+  };
 
   return {
     isLoading: isPending,

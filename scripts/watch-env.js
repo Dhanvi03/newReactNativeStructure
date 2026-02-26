@@ -1,4 +1,8 @@
-#!/usr/bin/env node
+//To run
+//npm run env:watch
+
+//usage
+//It will watch .env file for changes and sync it to .env.d.ts and .env.production
 
 const fs = require('fs');
 const path = require('path');

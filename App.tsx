@@ -6,38 +6,25 @@ import { navigationRef } from './src/utils/navigationRef';
 import RootNavigator from './src/navigation/RootNavigator';
 import FlashMessage from "react-native-flash-message";
 import { useAppBootstrap } from './src/hooks/ui/useAppBootstrap';
-import { Animated } from 'react-native';
+import { Animated, Text } from 'react-native';
 import { ErrorBoundary, ConnectivityBanner } from './src/components';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
   const { isAppReady, showSplash, splashOpacity, initialRoute } = useAppBootstrap();
 
+  // ✅ return null until ready — no blank flash
+  if (!isAppReady) return null;
+
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary>
-          <ConnectivityBanner />
-          <NavigationContainer ref={navigationRef}>
-            {isAppReady && <RootNavigator initialRouteName={initialRoute} />}
-          </NavigationContainer>
-
-          {showSplash && (
-            <Animated.View
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: '#FF0000',
-                opacity: splashOpacity,
-                zIndex: 9999,
-              }}
-            />
-          )}
-
-          <FlashMessage position="top" />
+        <ConnectivityBanner />
+        <NavigationContainer ref={navigationRef}>
+          <RootNavigator initialRouteName={initialRoute} />
+        </NavigationContainer>
+        <FlashMessage position="top" />
         </ErrorBoundary>
       </QueryClientProvider>
     </SafeAreaProvider>

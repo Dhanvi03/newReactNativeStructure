@@ -1,3 +1,9 @@
+//To run
+//npm run assets:sync
+
+//usage
+//It will genrate index file for images, icons, fonts, svgIcons by scanning added assets folder
+
 const fs = require('fs');
 const path = require('path');
 

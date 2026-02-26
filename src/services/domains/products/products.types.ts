@@ -1,6 +1,17 @@
 export interface ProductListParams {
-    page: number;
     limit: number;
-    category?: string;
-    search?: string;
+    page: number;
+}
+
+export interface CreateProductParam {
+    id:string,
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string;
+}
+
+export interface DeleteProductParams {
+    id: string;
 }

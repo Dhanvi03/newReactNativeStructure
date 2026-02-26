@@ -18,10 +18,8 @@ export enum Screen {
   // App Screens
   BOTTOM_TAB = 'BottomTab',
   EDIT_PROFILE = 'EditProfile',
-  NEWS_LIST = 'NewsList',
   NOTIFICATION = 'Notification',
-
-  ACTIVITY_EXAMPLE = 'ActivityExample',
+  PRODUCT_LIST = 'ProductList',
 }
 
 // Export all screen names as a type

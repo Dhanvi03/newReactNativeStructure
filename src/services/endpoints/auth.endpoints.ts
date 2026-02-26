@@ -5,5 +5,5 @@ const AUTH = `${API_CURRENT_VERSION}/auth/`;
 
 export const AUTH_ENDPOINTS = {
   LOGIN: `${AUTH}login`,
-  UPDATE: (id: string) => `${AUTH}news/${id}`,
+  LOGOUT: `${AUTH}logout`,
 } as const;

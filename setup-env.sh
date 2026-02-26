@@ -1,3 +1,9 @@
+#Usage
+#npm run env:setup
+
+#It will install react-native-dotenv and inject it into babel.config.js
+#It will clear metro cache to recognize new @env module
+
 echo "🔐 Setting up Environment Variables (@env)..."
 
 # 1. Install the transformer

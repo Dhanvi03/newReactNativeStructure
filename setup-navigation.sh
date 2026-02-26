@@ -4,6 +4,7 @@
 # ./setup-navigation.sh standard   (Stack + Bottom Tab ONLY)
 # ./setup-navigation.sh full       (Stack + Bottom Tab + Drawer)
 
+#It will set-up react-native-navigation
 TYPE=$1
 
 if [ "$TYPE" != "standard" ] && [ "$TYPE" != "full" ]; then
@@ -38,7 +39,7 @@ npm install $PACKAGES
 echo "🤖 Patching Android MainActivity..."
 APP_NAME=$(node -p "require('./app.json').name")
 
-if [ -f "android/app/src/main/java/com/${APP_NAME,,}/MainActivity.kt" ]; then
+if [ -f "android/app/src/main/java/com/${APP_NAME,,}/.kt" ]; then
     FILE_PATH="android/app/src/main/java/com/${APP_NAME,,}/MainActivity.kt"
     grep -q "import android.os.Bundle" "$FILE_PATH" || sed -i '' '1s/^/import android.os.Bundle;\n/' "$FILE_PATH"
     grep -q "override fun onCreate" "$FILE_PATH" || sed -i '' '/class MainActivity/a \

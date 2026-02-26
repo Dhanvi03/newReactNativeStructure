@@ -2,7 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { BottomTabParamList } from './navigation.types';
 import { useAppContext } from '@src/hooks';
-import NewsListScreen from '@src/screens/NewsList/NewsListScreen';
+import { AppText } from '@src/blueprints';
+import ProductListScreen from '@src/screens/Product/ProductListScreen';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -22,18 +23,17 @@ export const MainTabNavigator = () => {
   };
 
   return (
-    <Tab.Navigator
-      screenOptions={screenOptions}
-      children={
-        <Tab.Screen
-          name="Home"
-          component={NewsListScreen}
-          options={{
-            tabBarLabel: 'Home',
-          }}
-        />
-      }
-    />
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen
+        name="Home"
+        component={ProductListScreen}
+        options={{
+          tabBarLabel: ({ color }) => (
+            <AppText style={{ color, fontSize: 12 }}>Home</AppText>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
